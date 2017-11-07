@@ -1,7 +1,7 @@
 # Hot dog - Not Hot Dog application with TensorFlow
 
-Did you ever wanted to have your own Hot Dog - Not Hot Dog application?
-You can now. See the live video [here](https://youtu.be/7ki0mY0eQGU) to
+Did you ever want to have your own Hot Dog - Not Hot Dog application?
+You can now! See the live video [here](https://youtu.be/7ki0mY0eQGU) to
 learn how to do it in TensorFlow.
 
 # Installation
@@ -12,7 +12,7 @@ Steps
 
 - Go to data/scripts/images/car and add 100-200 photos of cars 
 - Go to data/scripts/images/hd and add 100-200 photos of Hot Dogs
-- Go to data/scripts/images/test and add a photo of car or a Hot Dog, named test.jpg
+- Go to data/scripts/images/test and add a photo of a car or a Hot Dog, named test.jpg
 
 Run in root folder,
 ~~~~
