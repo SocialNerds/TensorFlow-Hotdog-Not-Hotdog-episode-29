@@ -62,6 +62,11 @@ def train_model(x):
         correct = tf.equal(tf.argmax(prediction, 1), tf.argmax(y, 1))
         accuracy = tf.reduce_mean(tf.cast(correct, 'float'))
         # Set [1, 0] for hot dog and [0, 1] for car.
-        print('Accuracy:', accuracy.eval({x: [get_test_image()], y: [[1, 0]]}))
+        if (accuracy.eval({x: [get_test_image()], y: [[1, 0]]})):
+            print("SocialNerds bot found a Hot Dog!")
+        elif (accuracy.eval({x: [get_test_image()], y: [[0, 1]]})):
+            print("SocialNerds bot found a car!")
+        else:
+            print("Oops!")
 
 train_model(x)
