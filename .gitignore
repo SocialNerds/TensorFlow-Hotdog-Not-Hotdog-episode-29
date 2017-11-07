@@ -1,4 +1,6 @@
 .DS_Store
 .vscode
-images/car/*
-images/hd/*
+data/images/car/*
+data/images/hd/*
+data/images/test/*
+data/scripts/images.pyc
