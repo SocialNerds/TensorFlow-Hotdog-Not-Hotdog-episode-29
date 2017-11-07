@@ -3,28 +3,51 @@ from images import get_all_image_data, get_test_image
 
 input_n = 40000
 # Hidden layers.
-l1_n = 2000
-l2_n = 500
+l1_n = 300
+l2_n = 300
 l3_n = 300
+l4_n = 300
 
 # Output layer.
 n_classes = 2
 
+# Input.
 x = tf.placeholder('float')
+
+# Output.
 y = tf.placeholder('float')
 
+# Neural network model.
 def create_model(data):
-    hidden_1_layer = {'weights': tf.Variable(tf.random_normal([input_n, l1_n])),
-                      'biases': tf.Variable(tf.random_normal([l1_n]))}
+    # First layer.
+    hidden_1_layer = {
+        'weights': tf.Variable(tf.random_normal([input_n, l1_n])),
+        'biases': tf.Variable(tf.random_normal([l1_n]))
+    }
 
-    hidden_2_layer = {'weights': tf.Variable(tf.random_normal([l1_n, l2_n])),
-                      'biases': tf.Variable(tf.random_normal([l2_n]))}
+    # Second layer.
+    hidden_2_layer = {
+        'weights': tf.Variable(tf.random_normal([l1_n, l2_n])),
+        'biases': tf.Variable(tf.random_normal([l2_n]))
+    }
 
-    hidden_3_layer = {'weights': tf.Variable(tf.random_normal([l2_n, l3_n])),
-                      'biases': tf.Variable(tf.random_normal([l3_n]))}
+    # Third layer.
+    hidden_3_layer = {
+        'weights': tf.Variable(tf.random_normal([l2_n, l3_n])),
+        'biases': tf.Variable(tf.random_normal([l3_n]))
+    }
 
-    output_layer = {'weights': tf.Variable(tf.random_normal([l3_n, n_classes])),
-                    'biases': tf.Variable(tf.random_normal([n_classes]))}
+    # Forth layer.
+    hidden_4_layer = {
+        'weights': tf.Variable(tf.random_normal([l3_n, l4_n])),
+        'biases': tf.Variable(tf.random_normal([l4_n]))
+    }
+
+    # Output layer.
+    output_layer = {
+        'weights': tf.Variable(tf.random_normal([l4_n, n_classes])),
+        'biases': tf.Variable(tf.random_normal([n_classes]))
+    }
 
     l1 = tf.add(tf.matmul(data, hidden_1_layer['weights']), hidden_1_layer['biases'])
     l1 = tf.nn.relu(l1)
@@ -35,10 +58,14 @@ def create_model(data):
     l3 = tf.add(tf.matmul(l2, hidden_3_layer['weights']), hidden_3_layer['biases'])
     l3 = tf.nn.relu(l3)
 
-    output = tf.matmul(l3, output_layer['weights']) + output_layer['biases']
+    l4 = tf.add(tf.matmul(l3, hidden_4_layer['weights']), hidden_4_layer['biases'])
+    l4 = tf.nn.relu(l4)
+
+    output = tf.matmul(l4, output_layer['weights']) + output_layer['biases']
 
     return output
 
+# Train model and test accuracy.
 def train_model(x):
     train_data = get_all_image_data()
     train_images = [item[1] for item in train_data]
@@ -48,15 +75,15 @@ def train_model(x):
     cost = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits = prediction, labels = y))
     optimizer = tf.train.AdamOptimizer().minimize(cost)
     
-    epochs = 20
+    epochs = 50
     with tf.Session() as sess:
         sess.run(tf.global_variables_initializer())
 
         for epoch in range(epochs):
             _, epoch_loss = sess.run([optimizer, cost], feed_dict = {x: train_images, y: train_labels})
-
             print('Epoch: ' + str(epoch) + ' Epoch loss: ' +  str(epoch_loss))
-
+            if (epoch_loss == 0):
+                break
 
         # Check accuracy.
         correct = tf.equal(tf.argmax(prediction, 1), tf.argmax(y, 1))
@@ -69,4 +96,5 @@ def train_model(x):
         else:
             print("Oops!")
 
+# Train model and test accuracy.
 train_model(x)
