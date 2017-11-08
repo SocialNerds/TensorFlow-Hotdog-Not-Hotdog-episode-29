@@ -4,9 +4,9 @@ from images import get_all_image_data, get_test_images
 input_n = 40000
 # Hidden layers.
 l1_n = 500
-l2_n = 500
-l3_n = 500
-l4_n = 500
+l2_n = 400
+l3_n = 300
+l4_n = 200
 
 # Output layer.
 n_classes = 2
@@ -92,14 +92,14 @@ def train_model(x):
         for item in get_test_images():
             # Set [1, 0] for hot dog and [0, 1] for pizza.
             if (accuracy.eval({x: [item], y: [[1, 0]]})):
-                print("SocialNerds bot found a Hot Dog!")
+                print('SocialNerds bot found a Hot Dog!')
             elif (accuracy.eval({x: [item], y: [[0, 1]]})):
-                print("SocialNerds bot found a pizza!")
+                print('SocialNerds bot found a pizza!')
             else:
-                print("Oops!")
+                print('Oops!')
         
         # Print all predictions.
-        print("Predictions: " + prediction.eval(feed_dict={x: get_test_images()}, session = sess))
+        print('Predictions: ', prediction.eval(feed_dict = {x: get_test_images()}, session = sess))
 
 # Train model and test accuracy.
 train_model(x)

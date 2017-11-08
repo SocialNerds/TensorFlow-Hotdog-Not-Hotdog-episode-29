@@ -3,9 +3,9 @@ from PIL import Image, ImageOps
 from os import listdir
 import random
 
-hotdogs_path = "images/hd"
-pizzas_path = "images/pizza"
-test_path = "images/test"
+hotdogs_path = 'images/hd'
+pizzas_path = 'images/pizza'
+test_path = 'images/test'
 
 # Get a specific image.
 def get_file_data(file_path):
@@ -21,9 +21,9 @@ def get_images_from_path(folder_path):
     images = []
     for filename in listdir(folder_path):
         try:
-            images.append(get_file_data(folder_path + "/" + filename))
+            images.append(get_file_data(folder_path + '/' + filename))
         except IOError:
-            print("Found one non image file.")
+            print('Found one non image file.')
     return images
 
 # Get train images with labels.
