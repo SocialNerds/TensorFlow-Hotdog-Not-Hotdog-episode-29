@@ -3,10 +3,10 @@ from images import get_all_image_data, get_test_image
 
 input_n = 40000
 # Hidden layers.
-l1_n = 300
-l2_n = 300
-l3_n = 300
-l4_n = 300
+l1_n = 500
+l2_n = 500
+l3_n = 500
+l4_n = 500
 
 # Output layer.
 n_classes = 2
@@ -75,7 +75,7 @@ def train_model(x):
     cost = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits = prediction, labels = y))
     optimizer = tf.train.AdamOptimizer().minimize(cost)
     
-    epochs = 50
+    epochs = 100
     with tf.Session() as sess:
         sess.run(tf.global_variables_initializer())
 
@@ -88,11 +88,11 @@ def train_model(x):
         # Check accuracy.
         correct = tf.equal(tf.argmax(prediction, 1), tf.argmax(y, 1))
         accuracy = tf.reduce_mean(tf.cast(correct, 'float'))
-        # Set [1, 0] for hot dog and [0, 1] for car.
+        # Set [1, 0] for hot dog and [0, 1] for pizza.
         if (accuracy.eval({x: [get_test_image()], y: [[1, 0]]})):
             print("SocialNerds bot found a Hot Dog!")
         elif (accuracy.eval({x: [get_test_image()], y: [[0, 1]]})):
-            print("SocialNerds bot found a car!")
+            print("SocialNerds bot found a pizza!")
         else:
             print("Oops!")
 

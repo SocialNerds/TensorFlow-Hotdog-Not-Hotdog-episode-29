@@ -4,7 +4,7 @@ from os import listdir
 import random
 
 hotdogs_path = "images/hd"
-cars_path = "images/car"
+pizzas_path = "images/pizza"
 test_image = "images/test/test.jpg"
 
 def get_file_data(file_path):
@@ -24,10 +24,10 @@ def get_all_image_data():
             images.append([[1, 0], get_file_data(hotdogs_path + "/" + filename)])
         except IOError:
             print("Found one non image file")
-    # Get cars.
-    for filename in listdir(cars_path):
+    # Get pizzas.
+    for filename in listdir(pizzas_path):
         try:
-            images.append([[0, 1], get_file_data(cars_path + "/" + filename)])
+            images.append([[0, 1], get_file_data(pizzas_path + "/" + filename)])
         except IOError:
             print("Found one non image file")
     
