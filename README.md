@@ -9,7 +9,6 @@ Requirements
 - You need to have [Docker](https://docs.docker.com/engine/installation/) installed
 
 Steps
-
 - Go to data/scripts/images/pizza and add 100-200 photos of pizzas 
 - Go to data/scripts/images/hd and add 100-200 photos of hot dogs
 - Go to data/scripts/images/test and add test photos
