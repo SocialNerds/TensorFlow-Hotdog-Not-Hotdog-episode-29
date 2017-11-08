@@ -3,10 +3,10 @@ from images import get_all_image_data, get_test_images
 
 input_n = 40000
 # Hidden layers.
-l1_n = 200
+l1_n = 500
 l2_n = 500
 l3_n = 500
-l4_n = 200
+l4_n = 500
 
 # Output layer.
 n_classes = 2
@@ -97,6 +97,9 @@ def train_model(x):
                 print("SocialNerds bot found a pizza!")
             else:
                 print("Oops!")
+        
+        # Print all predictions.
+        print("Predictions: " + prediction.eval(feed_dict={x: get_test_images()}, session = sess))
 
 # Train model and test accuracy.
 train_model(x)

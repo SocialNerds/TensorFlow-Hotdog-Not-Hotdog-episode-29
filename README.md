@@ -10,9 +10,9 @@ Requirements
 
 Steps
 
-- Go to data/scripts/images/car and add 100-200 photos of cars 
-- Go to data/scripts/images/hd and add 100-200 photos of Hot Dogs
-- Go to data/scripts/images/test and add a photo of a car or a Hot Dog, named test.jpg
+- Go to data/scripts/images/pizza and add 100-200 photos of pizzas 
+- Go to data/scripts/images/hd and add 100-200 photos of hot dogs
+- Go to data/scripts/images/test and add test photos
 
 Run in root folder,
 ~~~~
