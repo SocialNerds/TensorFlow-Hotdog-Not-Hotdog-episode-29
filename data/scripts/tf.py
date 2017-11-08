@@ -1,12 +1,12 @@
 import tensorflow as tf
-from images import get_all_image_data, get_test_image
+from images import get_all_image_data, get_test_images
 
 input_n = 40000
 # Hidden layers.
-l1_n = 500
+l1_n = 200
 l2_n = 500
 l3_n = 500
-l4_n = 500
+l4_n = 200
 
 # Output layer.
 n_classes = 2
@@ -88,13 +88,15 @@ def train_model(x):
         # Check accuracy.
         correct = tf.equal(tf.argmax(prediction, 1), tf.argmax(y, 1))
         accuracy = tf.reduce_mean(tf.cast(correct, 'float'))
-        # Set [1, 0] for hot dog and [0, 1] for pizza.
-        if (accuracy.eval({x: [get_test_image()], y: [[1, 0]]})):
-            print("SocialNerds bot found a Hot Dog!")
-        elif (accuracy.eval({x: [get_test_image()], y: [[0, 1]]})):
-            print("SocialNerds bot found a pizza!")
-        else:
-            print("Oops!")
+
+        for item in get_test_images():
+            # Set [1, 0] for hot dog and [0, 1] for pizza.
+            if (accuracy.eval({x: [item], y: [[1, 0]]})):
+                print("SocialNerds bot found a Hot Dog!")
+            elif (accuracy.eval({x: [item], y: [[0, 1]]})):
+                print("SocialNerds bot found a pizza!")
+            else:
+                print("Oops!")
 
 # Train model and test accuracy.
 train_model(x)

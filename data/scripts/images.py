@@ -5,8 +5,9 @@ import random
 
 hotdogs_path = "images/hd"
 pizzas_path = "images/pizza"
-test_image = "images/test/test.jpg"
+test_path = "images/test"
 
+# Get a specific image.
 def get_file_data(file_path):
     image = Image.open(file_path).convert('LA').resize((200, 200), Image.ANTIALIAS)
     image = ImageOps.grayscale(image)
@@ -15,26 +16,33 @@ def get_file_data(file_path):
     data = data/255.0
     return data
 
-def get_all_image_data():
-    # Open all images.
+# Get all images from path.
+def get_images_from_path(folder_path):
     images = []
-    # Get hotdogs.
-    for filename in listdir(hotdogs_path):
+    for filename in listdir(folder_path):
         try:
-            images.append([[1, 0], get_file_data(hotdogs_path + "/" + filename)])
+            images.append(get_file_data(folder_path + "/" + filename))
         except IOError:
-            print("Found one non image file")
-    # Get pizzas.
-    for filename in listdir(pizzas_path):
-        try:
-            images.append([[0, 1], get_file_data(pizzas_path + "/" + filename)])
-        except IOError:
-            print("Found one non image file")
-    
-    # Shuffle images.
-    random.shuffle(images)
-
+            print("Found one non image file.")
     return images
 
-def get_test_image():
-    return get_file_data(test_image)
+# Get train images with labels.
+def get_all_image_data():
+    data = []
+    
+    # Get hotdogs.
+    for item in get_images_from_path(hotdogs_path):
+        data.append([[1, 0], item])
+
+    # Get pizzas.
+    for item in get_images_from_path(pizzas_path):
+        data.append([[0, 1], item])
+    
+    # Shuffle images.
+    random.shuffle(data)
+
+    return data
+
+# Get test images.
+def get_test_images():
+    return get_images_from_path(test_path)
