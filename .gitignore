@@ -1,3 +1,5 @@
 .DS_Store
 .vscode
 data/scripts/images.pyc
+data/scripts/images/temp
+__pycache__
