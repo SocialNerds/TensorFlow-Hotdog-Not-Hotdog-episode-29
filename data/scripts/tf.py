@@ -67,21 +67,30 @@ def create_model(data):
 
 # Train model and test accuracy.
 def train_model(x):
+    # Load images and labels.
     train_data = get_all_image_data()
     train_images = [item[1] for item in train_data]
     train_labels = [item[0] for item in train_data]
 
+    # Create prediction plan.
     prediction = create_model(x)
+    # Get the cost.
     cost = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits = prediction, labels = y))
+    # Optimize based on local minimum.
     optimizer = tf.train.AdamOptimizer().minimize(cost)
     
+    # Train based on model.
     epochs = 100
     with tf.Session() as sess:
+        # Intialize variables.
         sess.run(tf.global_variables_initializer())
 
+        # Run training for each epoch.
         for epoch in range(epochs):
+            # Get the epoch loss.
             _, epoch_loss = sess.run([optimizer, cost], feed_dict = {x: train_images, y: train_labels})
             print('Epoch: ' + str(epoch) + ' Epoch loss: ' +  str(epoch_loss))
+            # If epoch_loss is zero, break the loop.
             if (epoch_loss == 0):
                 break
 
@@ -91,15 +100,15 @@ def train_model(x):
 
         for item in get_test_images():
             # Set [1, 0] for hot dog and [0, 1] for pizza.
-            if (accuracy.eval({x: [item], y: [[1, 0]]})):
-                print('SocialNerds bot found a Hot Dog!')
-            elif (accuracy.eval({x: [item], y: [[0, 1]]})):
-                print('SocialNerds bot found a pizza!')
+            if (accuracy.eval({x: [item[0]], y: [[1, 0]]})):
+                print('SocialNerds bot found a Hot Dog!' + '(' + item[1] + ')')
+            elif (accuracy.eval({x: [item[0]], y: [[0, 1]]})):
+                print('SocialNerds bot found a pizza!' + '(' + item[1] + ')')
             else:
                 print('Oops!')
         
         # Print all predictions.
-        print('Predictions: ', prediction.eval(feed_dict = {x: get_test_images()}, session = sess))
+        print('Predictions: ', prediction.eval(feed_dict = {x: [item[0] for item in get_test_images()]}, session = sess))
 
 # Train model and test accuracy.
 train_model(x)

@@ -21,9 +21,10 @@ def get_images_from_path(folder_path):
     images = []
     for filename in listdir(folder_path):
         try:
-            images.append(get_file_data(folder_path + '/' + filename))
+            images.append([get_file_data(folder_path + '/' + filename), filename])
         except IOError:
-            print('Found one non image file.')
+            # print('Found one non image file.')
+            pass
     return images
 
 # Get train images with labels.
@@ -32,11 +33,11 @@ def get_all_image_data():
     
     # Get hotdogs.
     for item in get_images_from_path(hotdogs_path):
-        data.append([[1, 0], item])
+        data.append([[1, 0], item[0]])
 
     # Get pizzas.
     for item in get_images_from_path(pizzas_path):
-        data.append([[0, 1], item])
+        data.append([[0, 1], item[0]])
     
     # Shuffle images.
     random.shuffle(data)
