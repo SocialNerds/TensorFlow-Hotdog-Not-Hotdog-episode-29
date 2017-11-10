@@ -3,10 +3,10 @@ from images import get_all_image_data, get_test_images
 
 input_n = 40000
 # Hidden layers.
-l1_n = 500
+l1_n = 400
 l2_n = 400
-l3_n = 300
-l4_n = 200
+l3_n = 400
+l4_n = 400
 
 # Output layer.
 n_classes = 2

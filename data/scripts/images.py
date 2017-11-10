@@ -9,7 +9,8 @@ test_path = 'images/test'
 
 # Get a specific image.
 def get_file_data(file_path):
-    image = Image.open(file_path).convert('LA').resize((200, 200), Image.ANTIALIAS)
+    image = Image.open(file_path).convert('LA')
+    image = ImageOps.fit(image, (200, 200), Image.ANTIALIAS)
     image = ImageOps.grayscale(image)
     data = np.asarray(image)
     data = np.reshape(data, 40000)
