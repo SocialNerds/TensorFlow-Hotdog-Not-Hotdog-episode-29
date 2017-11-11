@@ -3,10 +3,10 @@ from images import get_all_image_data, get_test_images
 
 input_n = 40000
 # Hidden layers.
-l1_n = 400
-l2_n = 400
-l3_n = 400
-l4_n = 400
+l1_n = 2000
+l2_n = 2000
+l3_n = 2000
+l4_n = 2000
 
 # Output layer.
 n_classes = 2
@@ -98,7 +98,8 @@ def train_model(x):
         correct = tf.equal(tf.argmax(prediction, 1), tf.argmax(y, 1))
         accuracy = tf.reduce_mean(tf.cast(correct, 'float'))
 
-        for item in get_test_images():
+        test_images = get_test_images()
+        for item in test_images:
             # Set [1, 0] for hot dog and [0, 1] for pizza.
             if (accuracy.eval({x: [item[0]], y: [[1, 0]]})):
                 print('SocialNerds bot found a Hot Dog!' + '(' + item[1] + ')')
@@ -108,7 +109,7 @@ def train_model(x):
                 print('Oops!')
         
         # Print all predictions.
-        print('Predictions: ', prediction.eval(feed_dict = {x: [item[0] for item in get_test_images()]}, session = sess))
+        print('Predictions: ', prediction.eval(feed_dict = {x: [item[0] for item in test_images]}, session = sess))
 
 # Train model and test accuracy.
 train_model(x)
